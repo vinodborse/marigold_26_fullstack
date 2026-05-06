@@ -1,0 +1,204 @@
+SELECT * FROM <table_name>;
+
+DROP TABLE <table_name>;
+
+
+
+INSERT INTO <table_name>(column_name1, column_name2,.....) VALUE(value1, value2,....);
+INSERT INTO <table_name> VALUE (value1, value2,....);
+
+INSERT INTO <table_name> VALUES (value1, value2,....), (value1, value2,....), (value1, value2,....);
+
+constraints 
+------------
+
+UNIQUE
+NOT NULL
+PRIMARY KEY ----> UNIQUE + NOT NULL
+AUTO_INCREMENT
+DEFAULT <default_value>
+FOREIGN KEY (column_name) REFERANCES <parent_table_name>(primary_key_column_name);
+
+
+SELECT * FROM <table_name>;
+SELECT <column_name1> FROM <table_name>;
+
+CREATE TABLE <table_name>(<column_name1> <data_type> <constraint> <constraint>, <column_name1> <data_type>)
+DROP TABLE <table_name>;
+TRUNCATE TABLE <table_name>;
+
+ALTER TABLE <table_name> ADD <new_column_name> DATA_TYPE;
+ALTER TABLE <table_name> DROP <column_name>;
+ALTER TABLE <table_name> RENAME COLUMN <old_column_name> TO <new_column_name>;
+ALTER TABLE <table_name> MODIFY <column_name> <new_data_type>;
+
+
+=
+!=
+<
+>
+IN
+AND
+OR
+
+
+LIMIT
+ORDER BY ASC|DESC;
+LIKE '%'
+
+DELETE FROM <table_name> WHERE <condition>;
+
+UPDATE <table_name> SET <column_name> = <new_value> WHERE <condition>;
+
+
+
+
+=======================================
+
+
+CREATE DATABASE my_school_data;
+
+SHOW databases;
+
+-- DROP DATABASE <database_name>;
+DROP DATABASE temp_school;
+
+USE skillio_school;
+
+-- CREATE TABLE <table_name>(column_name data_type, column_name data_type);
+
+CREATE TABLE student(rollno int, name varchar(20), address varchar(50));
+
+-- SELECT * FROM <table_name>;
+
+SELECT * FROM student;
+
+DROP TABLE student;
+
+-- INSERT INTO <table_name>(column_name1, column_name2,.....) VALUE(value1, value2,....);
+INSERT INTO student(rollno, name, address) VALUE (1, 'Vinod', 'Pune');
+INSERT INTO student VALUE (2, 'Ramu', 'Mumbai');
+
+INSERT INTO student VALUES (5, 'Aliya', 'Mumbai'), (5, 'Rahul', 'Mumbai'), (5, 'Rohit', 'Mumbai');
+
+INSERT INTO student(rollno, address) VALUE (6, 'Pune');
+INSERT INTO student(address, rollno) VALUES ('Surat', 6), ('Delhi', 6),('Pune', 6);
+
+-- CREATE TABLE <table_name>(<column_name1> <data_type> <constraint> <constraint>, <column_name1> <data_type>)
+DROP TABLE student;
+CREATE TABLE student(rollno int UNIQUE, name varchar(20) NOT NULL, address varchar(20));
+CREATE TABLE student(rollno int PRIMARY KEY AUTO_INCREMENT, name varchar(20) NOT NULL, address varchar(20) DEFAULT 'Pune');
+SELECT * FROM student;
+INSERT INTO student(address, name) VALUES ('Pune', 'Pappu'),('Pune', 'Rohit'), ('Mumbai', 'Virat'), ('Dhule', 'Ramu'), ('Dhule', 'Shamu');
+
+INSERT INTO student(name) VALUES ('Sam'), ('Dholu'), ('Raama'), ('Kaalu'), ('Anarkali');
+
+
+SELECT address FROM student;
+SELECT address, rollno FROM student;
+
+SELECT * FROM student WHERE rollno = 5;
+SELECT * FROM student WHERE address = 'Mumbai';
+SELECT * FROM student WHERE name = 'Komal';
+
+
+SELECT * FROM student;
+
+
+
+DROP TABLE student;
+TRUNCATE TABLE student;
+
+
+/*
+ALTER TABLE <table_name> ADD <new_column_name> DATA_TYPE;
+ALTER TABLE <table_name> DROP <column_name>;
+ALTER TABLE <table_name> RENAME COLUMN <old_column_name> TO <new_column_name>;
+ALTER TABLE <table_name> MODIFY <column_name> <new_data_type>;
+*/
+
+SELECT * FROM student;
+ALTER TABLE student ADD mobile int;
+ALTER TABLE student DROP name;
+ALTER TABLE student RENAME COLUMN address TO city;
+ALTER TABLE student MODIFY mobile varchar(10);
+
+
+-- FOREIGN KEY (column_name) REFERANCES <parent_table_name>(primary_key_column_name);
+
+CREATE TABLE marks(math int, 
+				   eng int, 
+                   std_roll int,
+                   FOREIGN KEY (std_roll) REFERENCES student(rollno)
+                   );
+                   
+
+SELECT * FROM marks;  
+INSERT INTO marks VALUES(100, 100, 1), (14, 10, 2), (34, 56, 3), (78, 90, 4), (89, 70, 9);                  
+
+
+INSERT INTO marks(math, eng) VALUES (34, 23), (12, 14);
+
+SELECT * FROM student WHERE rollno IN (1,7,10, 56, 40, 210);
+
+SELECT * FROM student WHERE rollno = 1 AND name = 'Pappu';
+SELECT * FROM student WHERE rollno = 34 OR name = 'Virat';
+
+SELECT * FROM student WHERE rollno != 1;
+
+SELECT * FROM student LIMIT 10;
+
+SELECT * FROM student ORDER BY (name);
+
+SELECT * FROM student WHERE name LIKE '%o%';
+-- DELETE FROM <table_name> WHERE <condition>;
+
+DELETE FROM student WHERE rollno = 7;
+
+SELECT * FROM student WHERE rollno = 9; 
+SELECT * FROM marks; 
+
+SELECT * FROM student WHERE name = 'Virot Kohli'; 
+SELECT * FROM marks WHERE std_roll = 3;
+
+
+rollno 	name	math	eng
+
+
+-- UPDATE <table_name> SET <column_name> = <new_value> WHERE <condition>;
+
+UPDATE student SET name = 'Virot kohli' WHERE name = 'Virat';
+UPDATE student SET address = 'Surat' WHERE rollno = 6;
+
+SELECT * FROM student;
+
+SELECT * FROM marks; 
+
+
+SELECT * FROM student INNER JOIN marks ON marks.std_roll = student.rollno;
+SELECT * FROM student LEFT JOIN marks ON marks.std_roll = student.rollno;
+SELECT * FROM student RIGHT JOIN marks ON marks.std_roll = student.rollno;
+
+SELECT rollno, name, math, eng FROM student 
+INNER JOIN marks ON marks.std_roll = student.rollno 
+WHERE name ='Virot kohli';
+
+SELECT s.name student_name FROM student s
+INNER JOIN marks m ON m.std_roll = s.rollno;
+
+
+
+SELECT name, status AS result FROM student
+INNER JOIN marks ON marks.stud_roll = student.rollno
+INNER JOIN result ON result.m_id = marks.id
+
+-- SELECT * FROM student 
+-- INNER JOIN marks .......... WHERE name = 'Virot Kohli';
+
+
+
+
+
+-- INNER JOIN
+-- LEFT JOIN
+-- RIGHT JOIN
