@@ -6,6 +6,7 @@
   <display-name>Archetype Created Web Application</display-name>
   
   <welcome-file-list>
+	  <welcome-file>sample.jsp</welcome-file>
 	  <welcome-file>index.html</welcome-file>
   </welcome-file-list>
   
@@ -28,4 +29,16 @@
 	  <servlet-name>t</servlet-name>
 	  <url-pattern>/tch</url-pattern>
   </servlet-mapping>
+  
+  
+  <servlet>
+	  <servlet-name>qwe</servlet-name>
+	  <servlet-class>com.skillio.Search</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+	  <servlet-name>qwe</servlet-name>
+	  <url-pattern>/search</url-pattern>
+  </servlet-mapping>
+  
 </web-app>

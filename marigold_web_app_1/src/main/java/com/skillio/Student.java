@@ -1,6 +1,8 @@
 package com.skillio;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -14,6 +16,14 @@ public class Student extends HttpServlet {
 	        throws ServletException, IOException
 	    {
 			System.out.println("We are in Student class!!!!"); 
+			
+			req.setAttribute("stdName", "We are in Student class!!!!");
+
+			
+			req.getRequestDispatcher("sample.jsp").forward(req, resp);
+			
+
+
 	    }
 }
 

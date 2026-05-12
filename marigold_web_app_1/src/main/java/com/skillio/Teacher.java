@@ -14,5 +14,9 @@ public class Teacher extends HttpServlet {
 	        throws ServletException, IOException
 	    {
 			System.out.println("We are using TEACHER's file..!!!");
+			
+			req.setAttribute("stdName", "We are using TEACHER's file..!!!");
+			req.getRequestDispatcher("sample.jsp").forward(req, resp);
+			
 	    }
 }
