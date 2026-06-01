@@ -1,0 +1,65 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-3.0.xsd
+           http://www.springframework.org/schema/aop
+           http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+
+	<!-- 
+		Student s = new Student(); 
+		s.setRollno(1);
+    	s.setName("Vinod");
+    	s.setAddress("Pune");
+    	s.setB(new Batch());
+	-->
+
+<!--
+	<bean name="std" class="com.skillio.Student">
+		<property name="rollno" value="1"></property>
+		<property name="name" value="Vinod Bhai"></property>
+		<property name="address" value="Pune"></property>
+		<property name="b" >
+			<bean class="com.skillio.Batch"></bean>
+		</property>
+	</bean>
+-->
+<!--
+	<bean name="std" class="com.skillio.Student">
+		<property name="rollno" value="1"></property>
+		<property name="name" value="Vinod Bhai"></property>
+		<property name="address" value="Pune"></property>
+		<property name="b" ref="batch"></property>
+	</bean>
+	
+	<bean name="batch" class="com.skillio.Batch"></bean>
+-->	
+
+	<bean name="std" class="com.skillio.Student" autowire="byType"></bean>
+	
+	<bean name="batch" class="com.skillio.Batch"></bean>
+
+
+
+<!--
+		Student s2 = new Student(2, "Don", "Pune");
+	-->
+	<!--
+		<bean name="std" class="com.skillio.Student">
+			<constructor-arg value="2"></constructor-arg>
+			<constructor-arg value="Don Dada"></constructor-arg>
+			<constructor-arg value="Pune"></constructor-arg>
+		</bean>
+	-->
+
+</beans>
+
+
+
+
+
+
+
