@@ -3,6 +3,7 @@ package com.skillio.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -42,6 +43,12 @@ public class UserController {
 	@GetMapping("/user/{accno}")
 	public AccountDetailsDTO findUser(@PathVariable("accno") int accno) {
 		return us.findUser(accno);
+	}
+	
+
+	@DeleteMapping("/delete-user")
+	public String deleteUser(@RequestParam("accno") int accno,@RequestParam("aadhaar") int aadhaar) {
+		return us.deleteUser(accno, aadhaar);
 	}
 	
 }
