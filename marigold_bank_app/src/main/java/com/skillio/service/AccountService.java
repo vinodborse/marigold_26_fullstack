@@ -14,8 +14,11 @@ public class AccountService {
 
 	@Autowired
 	private UserRepository ur;
+	@Autowired
+	private HistoryService hs;
 	
 	public AccountDetailsDTO widhdraw(int accno, int aadhaar, int amount) {
+		
 		Optional<User> user = ur.findByAccNo(accno);
 
 		if(user.isPresent()) {
@@ -36,6 +39,8 @@ public class AccountService {
 								
 				ur.save(myData);
 				
+				hs.addEntry(accno, amount, myBalance, "Debit");
+				
 				AccountDetailsDTO add = new AccountDetailsDTO();
 				
 				add.setAccNo(accno);
@@ -54,6 +59,9 @@ public class AccountService {
 
 	public AccountDetailsDTO transfer(int fromAccno, int fromAadhaar, int amount, 
 									  int toAccno, int toAadhaar) {
+		if(fromAccno == toAccno) {
+			throw new RuntimeException("Please enter valid account number");
+		}
 		Optional<User> myOptionalData = ur.findByAccNo(fromAccno);
 		Optional<User> friendsOptionalData = ur.findByAccNo(toAccno);
 		
@@ -76,6 +84,10 @@ public class AccountService {
 				
 				ur.save(myData);
 				ur.save(friendsData);
+				
+				hs.addEntry(fromAccno, amount, myUpdatedBalance, "Debit");
+				hs.addEntry(toAccno, amount, friendsUpdatedBalance, "Credit");
+								
 				String myName = myData.getFirstname() + " "+ myData.getLastname();
 				
 				return new AccountDetailsDTO(myName, myData.getAccNo(), myData.getBalance()); 

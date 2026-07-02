@@ -17,6 +17,9 @@ public class UserService {
 
 	@Autowired
 	private UserRepository ur;
+	
+	@Autowired
+	private HistoryService hs;
 
 	public User addUser(User user) {
 		
@@ -58,8 +61,10 @@ public class UserService {
 				myData.setBalance(myBalance);
 
 				//myData.setBalance(myData.getBalance() + amount);
-								
+
 				ur.save(myData);
+				hs.addEntry(accno, amount, myBalance, "Credit");
+				
 				
 				AccountDetailsDTO add = new AccountDetailsDTO();
 				
